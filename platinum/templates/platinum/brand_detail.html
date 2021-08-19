@@ -1,0 +1,59 @@
+{% extends 'platinum/base.html' %}
+
+{% block title%}
+{{ brand }}
+{% endblock %}
+
+{% block content%}
+<h3>Motor oil "{{ brand }}"</h3>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Oil</th>
+        <th colspan="2">Standards</th>
+    </tr>
+    </thead>
+    {% for motor in motor_oils %}
+    {% if motor.brand == brand %}
+    <tr>
+        <td><a href="{% url 'platinum:oil_detail' motor.id %}">{{ motor.brand }} {{ motor.w_visco }}W-{{ motor.s_visco }} {{ motor.mark }}</a></td>
+        {% for oil_st in motor.standard.all %}
+        {% for st in standards %}
+        {% if oil_st == st %}
+        <td> {{ st }} </td>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+<hr>
+<h3>Transmission oil "{{ brand }}"</h3>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Oil</th>
+        <th>Standard</th>
+    </tr>
+    </thead>
+    {% for tr in transmission_oils %}
+    {% if tr.brand == brand %}
+    <tr>
+        <td><a href="{% url 'platinum:oil_detail' tr.id %}">
+            {{ tr.brand }} {{ tr.w_visco }}W-{{ tr.s_visco }} {{ tr.mark }}
+        </a></td>
+        {% for oil_st in tr.standard.all %}
+        {% for st in standards %}
+        {% if oil_st == st %}
+        <td> {{ st }} </td>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </tr>
+    {% endif %}
+
+    {% endfor %}
+</table>
+{% endblock %}

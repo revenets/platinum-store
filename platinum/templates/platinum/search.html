@@ -1,0 +1,36 @@
+{% extends 'platinum/base.html' %}
+
+{% block title%}
+Search
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center"> Search results </h1>
+{% if brands %}
+{% for brand in brands%}
+<div class="row">
+    <div class="col-2 my-2">
+        <img src="{{ brand.img.url }}" class="img-fluid" width="100">
+    </div>
+    <div class="col-8 align-self-center">
+        <h5><a href="{{ brand.url }}">{{ brand }}</a></h5>
+    </div>
+</div>
+{% endfor%}
+
+{% endif %}
+
+{% if oils %}
+{% for oil in oils %}
+<div class="row">
+    <div class="col-2 my-2">
+        <img src="{{ oil.brand.img.url }}" class="img-fluid" width="100">
+    </div>
+    <div class="col-8 align-self-center">
+        <h5><a href="{{ oil.url }}">{{ oil }}</a></h5>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

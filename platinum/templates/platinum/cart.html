@@ -1,0 +1,49 @@
+{% extends 'platinum/base.html' %}
+
+{% block title%}
+Sales cart
+{% endblock %}
+
+{% block content%}
+
+<h2 class="text-center">Make your order</h2>
+
+<form method="post" action="{% url 'platinum:add_order' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ order_form.as_table }}
+    </table>
+    <input class="btn btn-outline-success" type="submit" value="Add to cart">
+</form>
+<hr>
+<div class="row">
+    <div class="col-10">
+        <table class="table-bordered">
+            <tr>
+                <th colspan="2" class="text-center">Oil Instance</th>
+                <th class="text-center">Amount</th>
+                <th class="text-center">Price</th>
+                <th class="text-center">Sum</th>
+            </tr>
+            {% for unit in order %}
+            <tr>
+                <td><img src="{{ unit.oil.img.url }}" class="img-fluid" style="height:80px"></td>
+                <td>{{ unit.oil }}</td>
+                <td align="center">{{ unit.amount }}</td>
+                {% if user.is_authenticated %}
+                <td>{{ unit.oil.get_discount }} &#8372</td>
+                <td>{{ unit.get_sum_discount }} &#8372</td>
+                {% else %}
+                <td> {{ unit.oil.price }} &#8372 </td>
+                <td>{{ unit.get_sum }} &#8372</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<form method="post" action="{% url 'platinum:process_order' %}">
+    {% csrf_token %}
+    <input class="btn btn-outline-success" type="submit" value="Order">
+</form>
+{% endblock %}

@@ -1,0 +1,31 @@
+<style>
+body {
+  background-image: url('https://media-exp1.licdn.com/dms/image/C561BAQHyhamzNwfumw/company-background_10000/0/1519797805701?e=2159024400&v=beta&t=5QjfqOEKzgVvjEf-VvlJbW1zIX0RjA0ywg0qg9cTDv8');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+</style>
+<h1 style="text-align:center"> Login page </h1>
+
+{% if form.errors %}
+<p>Username or password is not correct</p>
+{% endif %}
+<div align="center">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th> {{ form.username.label_tag }}</th>
+                <td> {{ form.username }}</td>
+            </tr>
+            <tr>
+                <th> {{ form.password.label_tag }}</th>
+                <td> {{ form.password }}</td>
+            </tr>
+        </table>
+        <input type="submit" value="Confirm">
+    </form>
+    <br>
+    <a href="{% url 'platinum:index' %}" style="text-decoration:none">Main Page</a>
+</div>

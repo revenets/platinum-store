@@ -1,0 +1,30 @@
+{% extends 'platinum/base.html' %}
+
+{% block title%}
+Contacts
+{% endblock %}
+
+{% block content%}
+<h2 style="text-align:center"> Contact information </h2>
+<hr>
+<div class="row">
+    <div class="col-6">
+        <div class="row">
+            <h5><b>Manager: {{ manager }}</b></h5>
+        </div>
+        <div class="row">
+            <h5><b>Phone: {{ phone }}</b></h5>
+        </div>
+        <div class="row">
+            <h5><b>Address: {{ address }}</b></h5>
+        </div>
+        <div class="row">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2710.486159836347!2d35.22680301263721!3d47.79215278150678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dc5e9791e1e195%3A0xded69479dcd6080a!2z0JLQvtGB0YLQvtGH0L3QsNGPINGD0LsuLCA5LCDQl9Cw0L_QvtGA0L7QttGM0LUsINCX0LDQv9C-0YDQvtC20YHQutCw0Y8g0L7QsdC70LDRgdGC0YwsIDY5MDAw!5e0!3m2!1sru!2sua!4v1624562222032!5m2!1sru!2sua" width="450" height="350" style="border:0; " allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+    <div class="col-6" align="center">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd8LpZFwdJUgvq74yaybFpnAZLXLtLnOg7fG0QFdvIqpGyYJg/viewform?embedded=true" width="550" height="500" frameborder="0" marginheight="0" marginwidth="0">Загрузка…</iframe>
+
+    </div>
+</div>
+{% endblock %}

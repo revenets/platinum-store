@@ -1,0 +1,47 @@
+{% extends 'platinum/base.html' %}
+
+{% block title%}
+{{ oil }}
+{% endblock %}
+
+{% block content%}
+<a href="{% url 'platinum:brand_detail' oil.brand.id %}"><b> <<< Back to {{ oil.brand }}</b></a>
+{% for instance in oil_instances %}
+{% if oil == instance.oil %}
+<div class="row bg-light">
+    <div class="col-2 text-center my-2">
+        <img src="{{ instance.img.url }}" class="img-fluid" style="height:150px">
+    </div>
+    <div class="col-2 align-self-center">
+        <h6>{{ oil }} {{ instance.mark }}</h6>
+    </div>
+    {% for oil_st in oil.standard.all %}
+    {% for st in standards %}
+    {% if oil_st == st %}
+    <div class="col-2 align-self-center"><h6>{{st}}</h6></div>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    <div class="col-1 align-self-center">
+        <h6> {{ instance.volume }} L </h6>
+    </div>
+    <div class="col-2 align-self-center">
+        {% if user.is_authenticated %}
+        <h6><s>{{ instance.price }} &#8372</s><br>
+            {{ instance.get_discount }} &#8372
+        </h6>
+        {% else %}
+        <h6> {{ instance.price }} &#8372</h6>
+        {% endif %}
+    </div>
+<!--    <div class="col-1 align-self-center">-->
+<!--        <form method="post" action="#">-->
+<!--            <input name="amount" type="number" step="1" min="0" class="form-control input-sm">-->
+<!--            <input type="submit" value="Buy" class="btn btn-outline-success">-->
+<!--        </form>-->
+<!--    </div>-->
+</div>
+{% endif %}
+{% endfor %}
+
+{% endblock %}

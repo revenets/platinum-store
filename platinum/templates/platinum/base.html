@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'platinum/css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'platinum/img/favicon.png' %}"/>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd">
+        <a class="navbar-brand" href="{% url 'platinum:index' %}">
+            <img src="{% static 'platinum/img/favicon.png' %}" width="60" height="60" class="d-inline-block align-top"
+                 alt="">
+            <b>Platinum-2010</b>
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        User: <b>{{ user.get_full_name }}</b> <br> Click to log out
+                        <span class="sr-only"></span></a>
+                    {% else %}
+                    <a class="nav-link" href="{% url 'login' %}"><b>Log In</b><span class="sr-only"></span></a>
+                    {% endif %}
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% static 'platinum/xls/price.xlsx' %}" download>Price List<br> (download)</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="https://wixeurope.com/ua" target="_blank" rel="noopener noreferrer">Find a filter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://topoil.com.ua/specificacii-dopuski-masel-acea-a1-b1-a3-b3-b4-api-sn-sm-sl-gm-vw-504-507-506-01-506-00-505-01-505-00-ilsac-gf-5-sae-5w30-5w40-10w40-5w20-10w30"
+                   target="_blank" rel="noopener noreferrer">Standards Info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'platinum:contacts' %}">Contacts</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'platinum:cart' %}">
+                        <img src="{% static 'platinum/img/shopping-cart.png' %}" width="50">
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <form class="form-inline" method="post" action="{% url 'platinum:search' %}">
+            {% csrf_token %}
+            <input class="form-control" name="search"  type="search" placeholder="Search">
+            <input class="btn btn-outline-success" type="submit" value="Search">
+        </form>
+    </nav>
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
